@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
+@Disabled
 public class ArcadeDrive extends LinearOpMode {
     private DcMotor right;
     private DcMotor left;
@@ -17,11 +19,14 @@ public class ArcadeDrive extends LinearOpMode {
     private float rightPower;
     private float xValue;
     private float yValue;
+    double drive;
+    double turn;
+    double max;
 
     @Override
     public void runOpMode() {
-        left = hardwareMap.get(DcMotor.class, "left");
-        right = hardwareMap.get(DcMotor.class, "right");
+        left = hardwareMap.get(DcMotor.class, "left_drive");
+        right = hardwareMap.get(DcMotor.class, "right_drive");
         right.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
@@ -34,6 +39,7 @@ public class ArcadeDrive extends LinearOpMode {
         while (opModeIsActive()) {
             yValue = gamepad1.left_stick_y;
             xValue = gamepad1.left_stick_x;
+
 
             leftPower = yValue - xValue;
             rightPower = yValue + xValue;

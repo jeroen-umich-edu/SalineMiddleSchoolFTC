@@ -1,4 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+/*
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;/*package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 
 @TeleOp
 public class SlowDown extends LinearOpMode {
@@ -20,11 +24,15 @@ public class SlowDown extends LinearOpMode {
     private int leftPosition;
     private int rightPosition;
 
+
+
     @Override
     public void runOpMode() {
         left = hardwareMap.get(DcMotor.class, "left");
         right = hardwareMap.get(DcMotor.class, "right");
         right.setDirection(DcMotor.Direction.REVERSE);
+        left.setZeroPowerBehavior(FLOAT);
+        right.setZeroPowerBehavior(FLOAT);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -64,6 +72,24 @@ public class SlowDown extends LinearOpMode {
                 right.setPower(0.5);
                 telemetry.addData("Power", left.getPower());
                 telemetry.update();
+
+
+                while(left.getCurrentPosition() < leftPosition + 6000 && right.getCurrentPosition() < rightPosition + 6000) {
+                    leftPosition = left.getCurrentPosition();
+                    rightPosition = right.getCurrentPosition();
+
+                    if (left.getCurrentPosition() < leftPosition + 6000)
+                    {
+                        left.setPower(0.5);
+                        right.setPower(0.5);
+                 1111111111111111111   } else if(left.getCurrentPosition() < leftPosition + 3000 ) {
+                        left.setPower(0.3);
+                        right.setPower(0.3);
+                    }
+
+                    idle();
+                }
+
                 while(left.getCurrentPosition() < leftPosition + 3000 && right.getCurrentPosition() < rightPosition + 3000) {
                     idle();
                 }
@@ -106,3 +132,4 @@ public class SlowDown extends LinearOpMode {
     }
 }
 
+*/
